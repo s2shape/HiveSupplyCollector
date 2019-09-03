@@ -1,0 +1,3 @@
+[submodule "HiveThrift"]
+	path = HiveThrift
+	url = ../HiveThrift.git
