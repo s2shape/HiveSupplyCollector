@@ -1,5 +1,7 @@
 #!/bin/bash
-sudo docker run --name hive -d -p 10000:10000 -p 10001:10001 -p 10002:10002 nagasuga/docker-hive /bin/bash -c 'cd /usr/local/hive && ./bin/hiveserver2'
+docker run --name hive -d -p 10000:10000 -p 10001:10001 -p 10002:10002 nagasuga/docker-hive /bin/bash -c 'cd /usr/local/hive && ./bin/hiveserver2'
+docker cp HiveSupplyCollectorTests/tests/data_maps.txt hive:/data_maps.txt
+docker exec -i hive /bin/bash -c 'cd /usr/local/hive && ./bin/beeline -u jdbc:hive2://localhost:10000/default -n hive -p anonymous' < HiveSupplyCollectorTests/tests/data.sql
 
 echo { > HiveSupplyCollectorTests/Properties/launchSettings.json
 echo   \"profiles\": { >> HiveSupplyCollectorTests/Properties/launchSettings.json
