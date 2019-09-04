@@ -141,7 +141,20 @@ namespace HiveSupplyCollector
                         var columnName = rowValues["col_name"].ToString();
                         var dataType = rowValues["data_type"].ToString();
 
-                        entities.Add(new DataEntity(columnName, ConvertDataType(dataType), dataType, container, collection));
+                        if (dataType.StartsWith("struct<")) {
+                            var definition =
+                                dataType.Substring("struct<".Length, dataType.Length - "struct<".Length - 1);
+
+                            var fieldPairs = definition.Split(",");
+                            foreach (var fieldPair in fieldPairs) {
+                                var nametype = fieldPair.Split(":");
+
+                                entities.Add(new DataEntity(columnName + "." + nametype[0], ConvertDataType(nametype[1]), nametype[1], container, collection));
+                            }
+                        }
+                        else {
+                            entities.Add(new DataEntity(columnName, ConvertDataType(dataType), dataType, container, collection));
+                        }
                     }
                 }
             }

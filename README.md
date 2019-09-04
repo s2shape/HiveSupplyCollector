@@ -5,8 +5,7 @@ A supply collector designed to connect to Hive
 Run `dotnet build`
 
 ## Testing
-- First, build docker image
-```
-cd docker && sudo docker build -t s2shape/hive . 
-```
-- Then, run `./run-tests.sh`
+Run `./run-tests.sh`
+
+## Known issues
+- Limited support for maps

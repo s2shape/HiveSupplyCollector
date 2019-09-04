@@ -88,6 +88,32 @@ namespace HiveSupplyCollectorTests
         }
 
         [Fact]
+        public void ComplexDataTypesTest()
+        {
+            var (_, elements) = _instance.GetSchema(_container);
+
+            var dataTypes = new Dictionary<string, string>() {
+                {"id", "int"},
+                {"int_array", "array<int>"},
+                {"string_array", "array<string>"},
+                {"int_map", "map<int,string>"},
+                {"string_map", "map<string,string>"},
+                {"struct_field.id", "int"},
+                {"struct_field.name", "string"},
+                {"struct_field.description", "string"}
+            };
+
+            var columns = elements.Where(x => x.Collection.Name.Equals("test_complex_types")).ToArray();
+            Assert.Equal(8, columns.Length);
+
+            foreach (var column in columns)
+            {
+                Assert.Contains(column.Name, (IDictionary<string, string>)dataTypes);
+                Assert.Equal(dataTypes[column.Name], column.DbDataType);
+            }
+        }
+
+        [Fact]
         public void SpecialFieldNamesTest()
         {
             var (_, elements) = _instance.GetSchema(_container);
@@ -103,6 +129,15 @@ namespace HiveSupplyCollectorTests
             }
         }
 
+        [Fact]
+        public void CollectSampleTest()
+        {
+            var entity = new DataEntity("struct_field.name", DataType.String, "string", _container,
+                new DataCollection(_container, "test_complex_types"));
 
+            var samples = _instance.CollectSample(entity, 2);
+            Assert.Equal(2, samples.Count);
+            Assert.Contains("user", samples);
+        }
     }
 }
