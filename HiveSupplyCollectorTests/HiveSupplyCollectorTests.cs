@@ -139,5 +139,31 @@ namespace HiveSupplyCollectorTests
             Assert.Equal(2, samples.Count);
             Assert.Contains("user", samples);
         }
+
+        [Fact]
+        public void GetDataCollectionMetricsTest()
+        {
+            var metrics = new DataCollectionMetrics[] {
+                new DataCollectionMetrics()
+                    {Name = "test_data_types", RowCount = 1, TotalSpaceKB = 0.107M},
+                new DataCollectionMetrics()
+                    {Name = "test_field_names", RowCount = 1, TotalSpaceKB = 0.014M},
+                new DataCollectionMetrics()
+                    {Name = "test_complex_types", RowCount = 6, TotalSpaceKB = 0.521M},
+            };
+
+            var result = _instance.GetDataCollectionMetrics(_container);
+            Assert.Equal(3, result.Count);
+
+            foreach (var metric in metrics)
+            {
+                var resultMetric = result.Find(x => x.Name.Equals(metric.Name));
+                Assert.NotNull(resultMetric);
+
+                Assert.Equal(metric.RowCount, resultMetric.RowCount);
+                Assert.Equal(metric.TotalSpaceKB, resultMetric.TotalSpaceKB, 3);
+            }
+        }
+
     }
 }

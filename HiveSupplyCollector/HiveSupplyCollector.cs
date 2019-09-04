@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Net;
@@ -47,7 +48,46 @@ namespace HiveSupplyCollector
         }
 
         public override List<DataCollectionMetrics> GetDataCollectionMetrics(DataContainer container) {
-            throw new NotImplementedException();
+            var metrics = new List<DataCollectionMetrics>();
+
+            using (var conn = Connect(container.ConnectionString)) {
+                var cursor = conn.GetCursor();
+                cursor.Execute("show tables");
+                ExpandoObject row;
+                while ((row = cursor.FetchOne()) != null) {
+                    var rowValues = row as IDictionary<string, object>;
+
+                    var columnName = rowValues.Keys.First();
+                    metrics.Add(new DataCollectionMetrics() {Name = rowValues[columnName].ToString()});
+                }
+
+                foreach (var metric in metrics) {
+                    cursor.Execute($"analyze table {metric.Name} compute statistics");
+                    cursor.Execute($"describe formatted {metric.Name}");
+
+                    metric.RowCount = 0;
+                    metric.TotalSpaceKB = 0;
+                    metric.UsedSpaceKB = 0;
+
+                    while ((row = cursor.FetchOne()) != null)
+                    {
+                        var rowValues = row as IDictionary<string, object>;
+
+                        var dataType = rowValues["data_type"].ToString().Trim();
+                        var comment = rowValues["comment"].ToString().Trim();
+
+                        if ("numRows".Equals(dataType)) {
+                            metric.RowCount += Int64.Parse(comment);
+                        } else if ("rawDataSize".Equals(dataType)) {
+                            metric.UsedSpaceKB += Int64.Parse(comment) / 1024.0M;
+                        } else if ("totalSize".Equals(dataType)) {
+                            metric.TotalSpaceKB += Int64.Parse(comment) / 1024.0M;
+                        }
+                    }
+                }
+            }
+
+            return metrics;
         }
 
         private DataType ConvertDataType(string dbDataType)
