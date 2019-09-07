@@ -23,7 +23,7 @@ test:
   stage: test
 
   services:
-    - name: itsplus/docker-hive-test
+    - name: itsplus/s2shape-hive-test
       alias: hive
       command: [/bin/bash, -c, 'cd /usr/local/hive && ./bin/hiveserver2' ]
 
