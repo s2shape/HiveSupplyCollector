@@ -1,0 +1,32 @@
+image: microsoft/dotnet:latest
+
+stages:
+  - build
+  - test
+
+variables:
+  HIVE_HOST: hive
+  HIVE_PORT: "10000"
+  HIVE_DB: default
+  HIVE_USER: hive
+  HIVE_PASS: anonymous
+
+before_script:
+  - dotnet restore
+
+build:
+  stage: build
+  script:
+    - dotnet build
+
+test:
+  stage: test
+
+  services:
+    - name: itsplus/docker-hive-test
+      alias: hive
+      command: [/bin/bash, -c, 'cd /usr/local/hive && ./bin/hiveserver2' ]
+
+  script:
+    - dotnet build
+    - dotnet test
