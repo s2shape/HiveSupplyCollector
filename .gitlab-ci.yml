@@ -5,6 +5,7 @@ stages:
   - test
 
 variables:
+  GIT_SUBMODULE_STRATEGY: recursive
   HIVE_HOST: hive
   HIVE_PORT: "10000"
   HIVE_DB: default
@@ -12,6 +13,8 @@ variables:
   HIVE_PASS: anonymous
 
 before_script:
+  - git submodule sync --recursive
+  - git submodule update --init --recursive
   - dotnet restore
 
 build:
