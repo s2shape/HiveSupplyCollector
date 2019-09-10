@@ -1,3 +1,0 @@
-[submodule "HiveThrift"]
-	path = HiveThrift
-	url = https://github.com/s2shape/HiveThrift.git

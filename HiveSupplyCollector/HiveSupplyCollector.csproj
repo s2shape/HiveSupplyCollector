@@ -5,12 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HiveThrift" Version="0.1.5.1" />
     <PackageReference Include="Microsoft.Azure.Management.HDInsight" Version="5.1.0" />
     <PackageReference Include="S2.SupplyCollector" Version="1.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HiveThrift\HiveThrift\HiveThrift\HiveThrift.csproj" />
   </ItemGroup>
 
 </Project>
