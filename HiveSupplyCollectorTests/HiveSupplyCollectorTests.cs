@@ -149,7 +149,7 @@ namespace HiveSupplyCollectorTests
                 new DataCollectionMetrics()
                     {Name = "test_field_names", RowCount = 1, TotalSpaceKB = 0.014M},
                 new DataCollectionMetrics()
-                    {Name = "test_complex_types", RowCount = 6, TotalSpaceKB = 0.521M},
+                    {Name = "test_complex_types", RowCount = 6, TotalSpaceKB = 0.5M},
             };
 
             var result = _instance.GetDataCollectionMetrics(_container);
@@ -161,7 +161,7 @@ namespace HiveSupplyCollectorTests
                 Assert.NotNull(resultMetric);
 
                 Assert.Equal(metric.RowCount, resultMetric.RowCount);
-                Assert.Equal(metric.TotalSpaceKB, resultMetric.TotalSpaceKB, 3);
+                Assert.Equal(metric.TotalSpaceKB, resultMetric.TotalSpaceKB, 1);
             }
         }
 

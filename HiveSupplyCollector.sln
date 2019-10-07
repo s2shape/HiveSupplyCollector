@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiveSupplyCollector", "Hive
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HiveSupplyCollectorTests", "HiveSupplyCollectorTests\HiveSupplyCollectorTests.csproj", "{07E1A440-6F23-42CE-8FEC-F8B5695E9AF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiveSupplyCollectorLoader", "HiveSupplyCollectorLoader\HiveSupplyCollectorLoader.csproj", "{B15B7089-8614-4FF6-BD4B-D8F01EF1369F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{07E1A440-6F23-42CE-8FEC-F8B5695E9AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E1A440-6F23-42CE-8FEC-F8B5695E9AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E1A440-6F23-42CE-8FEC-F8B5695E9AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15B7089-8614-4FF6-BD4B-D8F01EF1369F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15B7089-8614-4FF6-BD4B-D8F01EF1369F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15B7089-8614-4FF6-BD4B-D8F01EF1369F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15B7089-8614-4FF6-BD4B-D8F01EF1369F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
