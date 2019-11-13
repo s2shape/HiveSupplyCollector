@@ -54,6 +54,6 @@ load_test:
     - cp -f /SupplyCollectorDataLoader/SupplyCollectorDataLoader/bin/Debug/netcoreapp2.2/SupplyCollectorDataLoader.runtimeconfig.json .
     - dotnet SupplyCollectorDataLoader.dll -init HiveSupplyCollector hive2://$HIVE_USER:$HIVE_PASS@$HIVE_HOST:$HIVE_PORT/$HIVE_DB
     - dotnet SupplyCollectorDataLoader.dll -xunit HiveSupplyCollector hive2://$HIVE_USER:$HIVE_PASS@$HIVE_HOST:$HIVE_PORT/$HIVE_DB
-    - dotnet SupplyCollectorDataLoader.dll -samples HiveSupplyCollector hive2://$HIVE_USER:$HIVE_PASS@$HIVE_HOST:$HIVE_PORT/$HIVE_DB TestCollection Test1:int,Test2:string,Test3:bool,Test4:double,Test5 1000000
+    - dotnet SupplyCollectorDataLoader.dll -samples HiveSupplyCollector hive2://$HIVE_USER:$HIVE_PASS@$HIVE_HOST:$HIVE_PORT/$HIVE_DB TestCollection Test1:int,Test2:string,Test3:bool,Test4:double,Test5 100000
     - cd $ROOT_PROJECT_PATH/HiveSupplyCollectorTests/bin/Debug/netcoreapp2.2/publish
     - SupplyCollectorTestHarness
